@@ -1,0 +1,763 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberPath | Cyber Security Learning</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #080d12;
+            color: #e7f0f2;
+            line-height: 1.7;
+        }
+
+        header {
+            background: #101820;
+            padding: 22px 8%;
+            border-bottom: 1px solid #263740;
+        }
+
+        header h1 {
+            color: #8cffb5;
+            font-size: 30px;
+        }
+
+        header p {
+            color: #94a6af;
+            font-size: 14px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        nav a {
+            color: #e7f0f2;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: #8cffb5;
+        }
+
+        main {
+            width: 84%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        section {
+            padding: 55px 0;
+        }
+
+        h2 {
+            color: #8cffb5;
+            margin-bottom: 18px;
+        }
+
+        .hero {
+            padding: 85px 0;
+        }
+
+        .hero h2 {
+            font-size: clamp(30px, 5vw, 48px);
+            line-height: 1.2;
+            max-width: 750px;
+        }
+
+        .hero p {
+            color: #aabac2;
+            max-width: 650px;
+            margin: 20px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 11px 20px;
+            background: #8cffb5;
+            color: #080d12;
+            font-weight: bold;
+            text-decoration: none;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #48e68c;
+        }
+
+        .search {
+            width: 100%;
+            padding: 13px;
+            margin: 10px 0 25px;
+            border: 1px solid #34454f;
+            border-radius: 7px;
+            background: #101820;
+            color: white;
+            font-size: 15px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: #101820;
+            padding: 23px;
+            border: 1px solid #263740;
+            border-radius: 12px;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            border-color: #8cffb5;
+            transform: translateY(-3px);
+        }
+
+        .card h3 {
+            color: #8cffb5;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #b3c0c6;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            display: inline-block;
+            color: #8cffb5;
+            background: #193328;
+            padding: 3px 9px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .lesson {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #34454f;
+        }
+
+        .lesson p,
+        .lesson li {
+            color: #d0dadd;
+            margin-bottom: 10px;
+        }
+
+        .lesson ul {
+            padding-left: 22px;
+        }
+
+        .lesson code {
+            color: #8cffb5;
+            background: #080d12;
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+
+        .roadmap {
+            list-style: none;
+            counter-reset: langkah;
+        }
+
+        .roadmap li {
+            counter-increment: langkah;
+            padding: 15px;
+            margin-bottom: 12px;
+            background: #101820;
+            border: 1px solid #263740;
+            border-radius: 8px;
+        }
+
+        .roadmap li::before {
+            content: counter(langkah) ". ";
+            color: #8cffb5;
+            font-weight: bold;
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            margin: 10px 0;
+            padding: 12px;
+            border: 1px solid #34454f;
+            border-radius: 7px;
+            background: #101820;
+            color: white;
+            cursor: pointer;
+        }
+
+        .quiz-option:hover {
+            border-color: #8cffb5;
+        }
+
+        .quiz-option:disabled {
+            cursor: default;
+            opacity: 0.85;
+        }
+
+        #hasilQuiz {
+            margin-top: 15px;
+            color: #8cffb5;
+        }
+
+        .progress-box {
+            background: #101820;
+            border: 1px solid #263740;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #263740;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        #progressFill {
+            width: 0%;
+            height: 100%;
+            background: #8cffb5;
+            transition: width 0.3s;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #101820;
+            color: #94a6af;
+            border-top: 1px solid #263740;
+        }
+
+        .muted {
+            color: #aabac2;
+        }
+
+        @media (max-width: 650px) {
+            main {
+                width: 90%;
+            }
+
+            header {
+                padding: 20px 5%;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                gap: 12px;
+            }
+
+            section {
+                padding: 35px 0;
+            }
+
+            .hero {
+                padding: 55px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>CyberPath<span style="color:white">_</span></h1>
+    <p>Cybersecurity Learning Platform</p>
+
+    <nav>
+        <a href="#beranda">Beranda</a>
+        <a href="#materi">Materi</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#kuis">Kuis</a>
+        <a href="#tentang">Tentang</a>
+    </nav>
+</header>
+
+<main>
+
+    <section id="beranda" class="hero">
+        <span class="tag">LEARN • PRACTICE • SECURE</span>
+
+        <h2>Jelajahi Dunia Cyber Security dari Nol.</h2>
+
+        <p>
+            Belajar keamanan siber secara bertahap, mulai dari Linux,
+            jaringan komputer, Python, hingga keamanan aplikasi web.
+            Bangun kemampuanmu satu materi setiap kali belajar.
+        </p>
+
+        <a href="#materi" class="btn">Mulai Belajar →</a>
+
+        <div class="progress-box">
+            <h3>Progres Belajarmu</h3>
+            <p id="progressText">0 dari 6 materi selesai</p>
+
+            <div class="progress-bar">
+                <div id="progressFill"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="materi">
+        <h2>Materi Pembelajaran</h2>
+        <p class="muted">Pilih materi untuk mulai mempelajari konsep dasarnya.</p>
+
+        <input
+            type="text"
+            id="searchInput"
+            class="search"
+            placeholder="Cari materi, misalnya Linux atau networking..."
+            oninput="cariMateri()"
+        >
+
+        <div class="container" id="materiContainer">
+
+            <article class="card" data-search="linux terminal command line">
+                <span class="tag">DASAR</span>
+                <h3>01. Linux Fundamentals</h3>
+                <p>Kenali sistem operasi Linux dan perintah dasar terminal.</p>
+
+                <button class="btn" onclick="toggleMateri(0)">
+                    Buka Materi
+                </button>
+
+                <div class="lesson" id="lesson0">
+                    <h4>Konsep Dasar Linux</h4>
+                    <p>Linux banyak digunakan pada server dan lingkungan keamanan siber.</p>
+
+                    <ul>
+                        <li><code>pwd</code> — melihat direktori saat ini.</li>
+                        <li><code>ls</code> — melihat isi direktori.</li>
+                        <li><code>cd</code> — berpindah direktori.</li>
+                        <li><code>mkdir</code> — membuat direktori.</li>
+                        <li><code>cat</code> — membaca isi file teks.</li>
+                    </ul>
+
+                    <p>Latihan: coba perintah tersebut pada terminal Linux milikmu.</p>
+
+                    <button class="btn" onclick="selesai(0)">
+                        Tandai Selesai
+                    </button>
+                </div>
+            </article>
+
+            <article class="card" data-search="networking jaringan ip dns tcp port">
+                <span class="tag">DASAR</span>
+                <h3>02. Computer Networking</h3>
+                <p>Pelajari bagaimana perangkat saling terhubung dan berkomunikasi.</p>
+
+                <button class="btn" onclick="toggleMateri(1)">
+                    Buka Materi
+                </button>
+
+                <div class="lesson" id="lesson1">
+                    <h4>Konsep Dasar Jaringan</h4>
+
+                    <ul>
+                        <li>IP Address: alamat perangkat dalam jaringan IP.</li>
+                        <li>DNS: menerjemahkan nama domain menjadi informasi alamat.</li>
+                        <li>TCP: komunikasi yang berorientasi koneksi.</li>
+                        <li>Port: nomor yang mengidentifikasi layanan jaringan.</li>
+                        <li>HTTP/HTTPS: protokol komunikasi web.</li>
+                    </ul>
+
+                    <p>Latihan: pelajari hasil perintah <code>ipconfig</code> di Windows atau <code>ip addr</code> di Linux.</p>
+
+                    <button class="btn" onclick="selesai(1)">
+                        Tandai Selesai
+                    </button>
+                </div>
+            </article>
+
+            <article class="card" data-search="python programming coding script">
+                <span class="tag">PEMROGRAMAN</span>
+                <h3>03. Python Fundamentals</h3>
+                <p>Belajar pemrograman untuk otomatisasi tugas sederhana.</p>
+
+                <button class="btn" onclick="toggleMateri(2)">
+                    Buka Materi
+                </button>
+
+                <div class="lesson" id="lesson2">
+                    <h4>Dasar Python</h4>
+
+                    <p>Contoh program sederhana:</p>
+
+                    <code>nama = input("Nama: ")</code>
+                    <br><br>
+                    <code>print("Halo,", nama)</code>
+
+                    <ul>
+                        <li>Variabel menyimpan data.</li>
+                        <li><code>if</code> digunakan untuk percabangan.</li>
+                        <li><code>for</code> digunakan untuk perulangan.</li>
+                        <li>Fungsi membantu menyusun kode agar bisa digunakan kembali.</li>
+                    </ul>
+
+                    <button class="btn" onclick="selesai(2)">
+                        Tandai Selesai
+                    </button>
+                </div>
+            </article>
+
+            <article class="card" data-search="web security http html browser">
+                <span class="tag">WEB SECURITY</span>
+                <h3>04. Web Security Basics</h3>
+                <p>Kenali cara kerja aplikasi web dan risiko keamanannya.</p>
+
+                <button class="btn" onclick="toggleMateri(3)">
+                    Buka Materi
+                </button>
+
+                <div class="lesson" id="lesson3">
+                    <h4>Konsep Keamanan Web</h4>
+
+                    <ul>
+                        <li>HTTP request dan response.</li>
+                        <li>Cookie dan session.</li>
+                        <li>Autentikasi dan otorisasi.</li>
+                        <li>Cross-Site Scripting (XSS).</li>
+                        <li>SQL Injection dan validasi input.</li>
+                    </ul>
+
+                    <p>
+                        Fokuslah memahami penyebab kerentanan dan cara
+                        mencegahnya. Praktikkan hanya pada lab legal,
+                        seperti Web Security Academy.
+                    </p>
+
+                    <button class="btn" onclick="selesai(3)">
+                        Tandai Selesai
+                    </button>
+                </div>
+            </article>
+
+            <article class="card" data-search="ethical hacking penetration testing">
+                <span class="tag">PENGUJIAN KEAMANAN</span>
+                <h3>05. Ethical Hacking</h3>
+                <p>Kenali proses pengujian keamanan sistem secara bertanggung jawab.</p>
+
+                <button class="btn" onclick="toggleMateri(4)">
+                    Buka Materi
+                </button>
+
+                <div class="lesson" id="lesson4">
+                    <h4>Tahapan Pengujian</h4>
+
+                    <ul>
+                        <li>Menentukan ruang lingkup dan izin.</li>
+                        <li>Mengumpulkan informasi yang diizinkan.</li>
+                        <li>Mengidentifikasi potensi kerentanan.</li>
+                        <li>Melakukan pengujian di lingkungan yang disetujui.</li>
+                        <li>Mendokumentasikan hasil dan rekomendasi perbaikan.</li>
+                    </ul>
+
+                    <p>
+                        Jangan menguji sistem orang lain tanpa izin yang jelas.
+                    </p>
+
+                    <button class="btn" onclick="selesai(4)">
+                        Tandai Selesai
+                    </button>
+                </div>
+            </article>
+
+            <article class="card" data-search="cybersecurity tools burp suite wireshark nmap">
+                <span class="tag">TOOLS</span>
+                <h3>06. Security Tools</h3>
+                <p>Kenali fungsi alat yang sering dipakai untuk belajar keamanan siber.</p>
+
+                <button class="btn" onclick="toggleMateri(5)">
+                    Buka Materi
+                </button>
+
+                <div class="lesson" id="lesson5">
+                    <h4>Alat untuk Pemula</h4>
+
+                    <ul>
+                        <li>Wireshark: menganalisis lalu lintas jaringan.</li>
+                        <li>Nmap: memetakan host dan layanan yang terdeteksi.</li>
+                        <li>Burp Suite: memeriksa dan menguji lalu lintas aplikasi web.</li>
+                        <li>Git: mengelola versi kode dan proyek.</li>
+                    </ul>
+
+                    <p>
+                        Gunakan alat hanya pada perangkat, jaringan,
+                        dan aplikasi yang kamu miliki atau yang secara
+                        eksplisit mengizinkan pengujian.
+                    </p>
+
+                    <button class="btn" onclick="selesai(5)">
+                        Tandai Selesai
+                    </button>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <section id="roadmap">
+        <h2>Roadmap Belajar</h2>
+        <p class="muted">Ikuti urutan ini agar fondasi belajarmu kuat.</p>
+
+        <ol class="roadmap">
+            <li>Dasar komputer dan jaringan</li>
+            <li>Linux dan command line</li>
+            <li>Python dasar</li>
+            <li>HTTP dan cara kerja aplikasi web</li>
+            <li>Dasar keamanan web dan OWASP</li>
+            <li>Latihan CTF dan lab keamanan legal</li>
+            <li>Membangun proyek portofolio cybersecurity</li>
+        </ol>
+    </section>
+
+    <section id="kuis">
+        <h2>Kuis Cyber Security</h2>
+        <p class="muted">Uji pemahamanmu dengan pertanyaan berikut.</p>
+
+        <div class="card">
+            <h3 id="pertanyaan">1. Apa fungsi DNS?</h3>
+
+            <div id="pilihan"></div>
+
+            <p id="hasilQuiz" aria-live="polite"></p>
+
+            <button class="btn" id="nextBtn" onclick="berikutnya()" hidden>
+                Pertanyaan Berikutnya
+            </button>
+
+            <p id="skorAkhir"></p>
+        </div>
+    </section>
+
+    <section id="tentang">
+        <h2>Tentang CyberPath</h2>
+        <p class="muted">
+            CyberPath merupakan proyek pembelajaran sederhana untuk
+            membantu pemula mengenal cybersecurity secara bertahap.
+            Gunakan pengetahuan yang dipelajari secara etis dan
+            bertanggung jawab.
+        </p>
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 CyberPath | Learn. Practice. Secure.</p>
+</footer>
+
+<script>
+    // Menampilkan atau menyembunyikan materi
+    function toggleMateri(id) {
+        const materi = document.getElementById("lesson" + id);
+
+        if (materi.style.display === "block") {
+            materi.style.display = "none";
+        } else {
+            materi.style.display = "block";
+        }
+    }
+
+    // Menyimpan status materi yang selesai
+    const materiSelesai = new Set();
+
+    function selesai(id) {
+        materiSelesai.add(id);
+        updateProgress();
+
+        alert("Materi berhasil ditandai selesai!");
+    }
+
+    function updateProgress() {
+        const jumlah = materiSelesai.size;
+        const persen = (jumlah / 6) * 100;
+
+        document.getElementById("progressText").textContent =
+            jumlah + " dari 6 materi selesai";
+
+        document.getElementById("progressFill").style.width =
+            persen + "%";
+    }
+
+    // Mencari materi berdasarkan kata kunci
+    function cariMateri() {
+        const input = document.getElementById("searchInput")
+            .value.toLowerCase();
+
+        const kartu = document.querySelectorAll("#materiContainer .card");
+
+        kartu.forEach(function(item) {
+            const teks = item.textContent.toLowerCase();
+            const kataKunci = item.dataset.search.toLowerCase();
+
+            item.style.display =
+                teks.includes(input) || kataKunci.includes(input)
+                    ? ""
+                    : "none";
+        });
+    }
+
+    // Data kuis
+    const soal = [
+        {
+            tanya: "1. Apa fungsi DNS?",
+            opsi: [
+                "Melindungi komputer dari semua virus",
+                "Menerjemahkan nama domain menjadi informasi alamat",
+                "Membuat kata sandi",
+                "Menghapus file"
+            ],
+            benar: 1
+        },
+        {
+            tanya: "2. Perintah Linux untuk melihat direktori saat ini adalah?",
+            opsi: ["pwd", "mkdir", "clear", "touch"],
+            benar: 0
+        },
+        {
+            tanya: "3. Apa fungsi utama HTTPS?",
+            opsi: [
+                "Mempercepat semua komputer",
+                "Menghapus malware secara otomatis",
+                "Melindungi komunikasi web dengan enkripsi TLS",
+                "Menyimpan semua file pengguna"
+            ],
+            benar: 2
+        },
+        {
+            tanya: "4. Apa arti autentikasi?",
+            opsi: [
+                "Memverifikasi identitas pengguna",
+                "Menghapus akun",
+                "Mengubah alamat IP",
+                "Mematikan server"
+            ],
+            benar: 0
+        },
+        {
+            tanya: "5. Apa fungsi Wireshark?",
+            opsi: [
+                "Mendesain logo",
+                "Menganalisis lalu lintas jaringan",
+                "Membuat presentasi",
+                "Mengedit video"
+            ],
+            benar: 1
+        },
+        {
+            tanya: "6. Kapan pengujian keamanan boleh dilakukan?",
+            opsi: [
+                "Pada semua situs yang ditemukan",
+                "Saat tidak ada yang mengawasi",
+                "Pada sistem yang memiliki izin pengujian",
+                "Pada jaringan publik tanpa batas"
+            ],
+            benar: 2
+        }
+    ];
+
+    let nomor = 0;
+    let skor = 0;
+    let sudahMenjawab = false;
+
+    function tampilkanSoal() {
+        sudahMenjawab = false;
+
+        const data = soal[nomor];
+
+        document.getElementById("pertanyaan").textContent = data.tanya;
+        document.getElementById("hasilQuiz").textContent = "";
+        document.getElementById("skorAkhir").textContent = "";
+        document.getElementById("nextBtn").hidden = true;
+
+        const pilihan = document.getElementById("pilihan");
+        pilihan.innerHTML = "";
+
+        data.opsi.forEach(function(teks, index) {
+            const tombol = document.createElement("button");
+
+            tombol.className = "quiz-option";
+            tombol.textContent = teks;
+
+            tombol.onclick = function() {
+                jawab(index);
+            };
+
+            pilihan.appendChild(tombol);
+        });
+    }
+
+    function jawab(index) {
+        if (sudahMenjawab) return;
+
+        sudahMenjawab = true;
+
+        const data = soal[nomor];
+        const tombol = document.querySelectorAll(".quiz-option");
+
+        tombol.forEach(function(item) {
+            item.disabled = true;
+        });
+
+        if (index === data.benar) {
+            skor++;
+
+            document.getElementById("hasilQuiz").textContent =
+                "Benar! Jawabanmu tepat.";
+        } else {
+            document.getElementById("hasilQuiz").textContent =
+                "Belum tepat. Jawaban yang benar: " +
+                data.opsi[data.benar];
+        }
+
+        if (nomor < soal.length - 1) {
+            document.getElementById("nextBtn").hidden = false;
+        } else {
+            document.getElementById("skorAkhir").textContent =
+                "Kuis selesai! Skor kamu: " + skor +
+                " dari " + soal.length + ".";
+        }
+    }
+
+    function berikutnya() {
+        if (nomor < soal.length - 1) {
+            nomor++;
+            tampilkanSoal();
+        }
+    }
+
+    // Memulai kuis saat halaman dibuka
+    tampilkanSoal();
+</script>
+
+</body>
+</html>
